@@ -1,0 +1,17 @@
+databases:
+  - name: dashboard_cj
+    databaseName: dashboard_cj
+    user: dashboard_cj_user
+services:
+  - type: web
+    name: dashboard_cj
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: postgres://dashboard_cj_user:HmwcNbuUCpRTTzLxsVgfNEaNtRyW1UC3@dpg-cf3upden6mps0qn1gpg0-a/dashboard_cj
+        fromDatabase:
+          name: dashboard_cj
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
